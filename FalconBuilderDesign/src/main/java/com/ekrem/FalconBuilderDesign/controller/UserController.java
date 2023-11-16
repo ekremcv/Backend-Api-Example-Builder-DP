@@ -6,6 +6,7 @@ import com.ekrem.FalconBuilderDesign.model.User;
 import com.ekrem.FalconBuilderDesign.paginator.UserPaginator;
 import com.ekrem.FalconBuilderDesign.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,9 +33,9 @@ public class UserController {
     }
 
     @GetMapping("/{no}/{size}")
-    public ResponseEntity<List<UserFilterDto>> getPaginationUser(@PathVariable int no,
-                                      @PathVariable int size,@RequestBody UserFilterDto userFilterDto) {
-        return userPaginator.getPaginationUser(no, size,userFilterDto);
+    public ResponseEntity<Page<UserDto>> getPaginationUser(@PathVariable int no,
+                                                                 @PathVariable int size, @RequestBody User user) {
+        return userPaginator.getPaginationUser(no, size,user);
     }
 
     @PostMapping("/add")

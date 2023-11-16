@@ -76,9 +76,9 @@ public class UserService implements UserPaginator {
 
 
     @Override
-    public ResponseEntity<List<UserFilterDto>> getPaginationUser(int no,int size,UserFilterDto userFilterDto){
+    public ResponseEntity<Page<UserDto>> getPaginationUser(int no,int size,User user){
         Pageable pageable=PageRequest.of(no,size);
-        Page<UserFilterDto> userPage=  userDao.findAll(UserSpecification.generalFilter(userFilterDto),pageable);
-        return new ResponseEntity<>(userPage.toList(), HttpStatus.OK);
+        Page<UserDto> userPage=  userDao.findAll(UserSpecification.generalFilter(user),pageable).map(Mapper::convertEntityToDtoWithAp);
+        return new ResponseEntity<>(userPage, HttpStatus.OK);
     }
 }
